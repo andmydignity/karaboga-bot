@@ -5,7 +5,7 @@ wordl = ["tayyip", "erdoğan", "teyyip", "turkey", "rte", "r.t.e",
          "erdogan", "arab", "armenian genocide", "atatürk", "ataturk", "atagay", "erdogay", "turkish", "t"]
 
 reddit = praw.Reddit(
-    #stuff go here
+    #creditantials go here
 )
 
 subl = ["balkans_irl"]  # Subs that bot will reply on
