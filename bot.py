@@ -4,15 +4,14 @@ wordl = ["tayyip", "erdoğan", "teyyip", "turkey", "rte", "r.t.e",
          "r.t.e.", "uzun adam", "turgay", "nigga", "karaboga", "karaboğa", "türkiye", "turk", "türk", "cockroach",
          "erdogan", "arab", "armenian genocide", "atatürk", "ataturk", "atagay", "erdogay", "turkish", "t"]
 
-reddit = praw.Reddit(
-    #creditantials go here
-)
+reddit = praw.Reddit()#creditansials here
+
 
 subl = ["balkans_irl"]  # Subs that bot will reply on
 d = 0
 
 # Move the set initialization outside the loop
-titlel = []
+last=""
 wait=3
 is_k=False
 while True:
@@ -20,15 +19,12 @@ while True:
     print(subl[d])
 
     for post in sub.new(limit=1):
-        skip=False
-        for f in titlel:
-            if post.id==f:
-                skip=True
-        if skip:
+        if post.id==last:
+            print("skipped")
             continue
         post_title_words = post.title.lower().split()  # Split the title into words
         for word in post_title_words:
-            if word in wordl and post.id not in titlel:
+            if word in wordl:
                 print(f"Found a relevant word in post: {post.title.lower()}")
                 is_k=True
                 break  # Exit the inner loop if a relevant word is found
@@ -41,14 +37,13 @@ while True:
             print("Replied to a post.(" + subl[d] + ")")
         except Exception as e:
             print("Couldn't reply. ({})".format(e))
-        titlel.append(post.id)  # Add the post ID to the set
+        last=post.id
         is_k=False
 
     if d == len(subl) - 1:
         d = 0
     else:
         d += 1
-    if len(titlel) > 100:
-        del titlel[:50]
+    print("waiting")
     sleep(wait)
     # Switch to another sub
